@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { Navbar } from "@/components/layouts/navbar";
+import { Footer } from "@/components/layouts/footer";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -35,7 +37,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar className="sticky top-0 z-10 bg-background dark:bg-gray-900" />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
