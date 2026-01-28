@@ -16,7 +16,7 @@ interface MealProps {
 
 export default function MealCard({ meal }: MealProps) {
     return (
-        <div className="group bg-white rounded-lg border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full">
+        <div className="group bg-background rounded-tl-xl rounded-br-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full">
             <div className="relative h-48 w-full overflow-hidden">
                 <Image
                     src={meal.imageUrl || "/placeholder-food.jpg"}
@@ -38,13 +38,13 @@ export default function MealCard({ meal }: MealProps) {
             </div>
             <div className="p-5 flex flex-col grow">
                 <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-lg font-bold text-gray-800 line-clamp-1 group-hover:text-orange-600 transition-colors">
+                    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 line-clamp-1">
                         {meal.title}
                     </h3>
-                    <span className="text-orange-600 font-bold text-lg">${meal.price}</span>
+                    <span className="text-orange-600 font-bold text-lg">${meal.price.toFixed(2)}</span>
                 </div>
 
-                <p className="text-gray-500 text-sm line-clamp-2 mb-4 grow">
+                <p className="text-gray-500 dark:text-gray-300 text-sm line-clamp-2 mb-4 grow">
                     {meal.description}
                 </p><button
                     disabled={!meal.isAvailable}
