@@ -107,10 +107,10 @@ const Navbar = ({
           </div>
           <div className="flex gap-2">
             <ModeToggle />
-            <Button asChild variant="outline" size="sm">
+            <Button asChild variant="outline">
               <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>
-            <Button asChild size="sm">
+            <Button asChild variant="outline">
               <Link href={auth.signup.url}>{auth.signup.title}</Link>
             </Button>
           </div>
