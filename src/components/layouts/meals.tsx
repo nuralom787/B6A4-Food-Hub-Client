@@ -5,7 +5,7 @@ const Meals = async () => {
     const { data: meals } = await getMeals();
 
     return (
-        <div className="py-10 md:py-16 lg:py-20 lg:px-16 space-y-12">
+        <div className="py-10 md:py-12 lg:py-20 lg:px-16 space-y-12">
             <div className="text-center">
                 <small className="text-xs md:text-sm font-semibold uppercase">Hot & Spicy</small>
                 <h1 className="font-bold text-xl md:text-3xl uppercase text-[#f1620c]">Experience Our Delicious Food</h1>

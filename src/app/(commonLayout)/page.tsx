@@ -7,7 +7,7 @@ import Reviews from "@/components/layouts/reviews";
 export default async function Home() {
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-2 md:space-x-6 lg:space-y-16">
       <Hero
         badge="Hot For Every Sunday"
         heading="Enjoy our delicious food"

@@ -17,8 +17,8 @@ const Hero = ({
   return (
     <section className={cn("py-4")}>
       <div className="container">
-        <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-12 bg-background p-16 rounded-lg">
-          <div className="gap-5 flex flex-col items-center text-center lg:items-start lg:text-left">
+        <div className="grid items-center gap-6 md:grid-cols-2 lg:gap-12 bg-background p-4 lg:p-16 rounded-lg">
+          <div className="gap-5 flex flex-col items-center text-center md:items-start md:text-left">
             <p>
               {badge}
             </p>
@@ -28,8 +28,8 @@ const Hero = ({
             <p className="max-w-xl text-muted-foreground lg:text-xl">
               {description}
             </p>
-            <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
-              <Button asChild className="w-full sm:w-auto">
+            <div className="flex w-full flex-col justify-center gap-2 sm:flex-row md:justify-start">
+              <Button asChild className="w-full md:w-auto">
                 <a href="/">
                   Order Now →
                 </a>
@@ -39,7 +39,7 @@ const Hero = ({
           <Image
             src={bannerLogo}
             alt={"image.alt"}
-            className="object-cover"
+            className="object-cover hidden md:block"
           />
         </div>
       </div>
