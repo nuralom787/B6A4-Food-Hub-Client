@@ -1,0 +1,38 @@
+[
+    {
+        "id": "rev1",
+        "rating": 5,
+        "comment": "The Classic Beef Burger was incredibly juicy! Highly recommended.",
+        "customerId": "u1",
+        "customerName": "Arif Rahman",
+        "mealId": "m1",
+        "createdAt": "2026-01-15T10:00:00Z"
+    },
+    {
+        "id": "rev2",
+        "rating": 4,
+        "comment": "Pizza was good, but the delivery took a bit long.",
+        "customerId": "u2",
+        "customerName": "Sumaiya Khan",
+        "mealId": "m2",
+        "createdAt": "2026-01-20T14:30:00Z"
+    },
+    {
+        "id": "rev1",
+        "rating": 5,
+        "comment": "The Classic Beef Burger was incredibly juicy! Highly recommended.",
+        "customerId": "u1",
+        "customerName": "Arif Rahman",
+        "mealId": "m1",
+        "createdAt": "2026-01-15T10:00:00Z"
+    },
+    {
+        "id": "rev2",
+        "rating": 4,
+        "comment": "Pizza was good, but the delivery took a bit long.",
+        "customerId": "u2",
+        "customerName": "Sumaiya Khan",
+        "mealId": "m2",
+        "createdAt": "2026-01-20T14:30:00Z"
+    }
+]

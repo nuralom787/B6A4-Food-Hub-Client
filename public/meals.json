@@ -1,0 +1,302 @@
+[
+    {
+        "id": "m1",
+        "title": "Classic Beef Burger",
+        "description": "Juicy beef patty with fresh lettuce, tomato, and our secret sauce.",
+        "price": 12.99,
+        "imageUrl": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd",
+        "isAvailable": true,
+        "categoryId": "550e8400-e29b-41d4-a716-446655440000",
+        "providerId": "p1"
+    },
+    {
+        "id": "m2",
+        "title": "Margherita Pizza",
+        "description": "Fresh mozzarella, basil, and tomato sauce on a thin crust.",
+        "price": 14.50,
+        "imageUrl": "https://images.unsplash.com/photo-1574071318508-1cdbad80ad38",
+        "isAvailable": true,
+        "categoryId": "672b1234-bcde-4567-8901-234567890abc",
+        "providerId": "p1"
+    },
+    {
+        "id": "m3",
+        "title": "Creamy Alfredo Pasta",
+        "description": "Fettuccine pasta tossed in a rich and creamy parmesan sauce.",
+        "price": 11.00,
+        "imageUrl": "https://images.unsplash.com/photo-1645112481339-304918e5f8f8",
+        "isAvailable": true,
+        "categoryId": "123e4567-e89b-12d3-a456-426614174000",
+        "providerId": "p2"
+    },
+    {
+        "id": "m4",
+        "title": "Chocolate Lava Cake",
+        "description": "Warm chocolate cake with a gooey molten center.",
+        "price": 6.99,
+        "imageUrl": "https://images.unsplash.com/photo-1624353365286-3f8d62daad51",
+        "isAvailable": true,
+        "categoryId": "789f0123-ghij-4567-890k-112233445566",
+        "providerId": "p2"
+    },
+    {
+        "id": "m5",
+        "title": "Iced Caramel Macchiato",
+        "description": "Freshly brewed espresso with milk and sweet caramel syrup.",
+        "price": 4.50,
+        "imageUrl": "https://images.unsplash.com/photo-1485808191679-5f86510681a2",
+        "isAvailable": true,
+        "categoryId": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+        "providerId": "p3"
+    },
+    {
+        "id": "m6",
+        "title": "Greek Salad",
+        "description": "Crisp cucumbers, tomatoes, red onions, and feta cheese with olive oil.",
+        "price": 8.50,
+        "imageUrl": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
+        "isAvailable": true,
+        "categoryId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "providerId": "p1"
+    },
+    {
+        "id": "m7",
+        "title": "BBQ Chicken Pizza",
+        "description": "Grilled chicken, red onions, and cilantro with tangy BBQ sauce.",
+        "price": 16.00,
+        "imageUrl": "https://images.unsplash.com/photo-1513104890138-7c749659a591",
+        "isAvailable": true,
+        "categoryId": "672b1234-bcde-4567-8901-234567890abc",
+        "providerId": "p1"
+    },
+    {
+        "id": "m8",
+        "title": "Cheese Lover's Burger",
+        "description": "Double patty with cheddar, swiss, and provolone cheese.",
+        "price": 15.00,
+        "imageUrl": "https://images.unsplash.com/photo-1571091718767-18b5b1457add",
+        "isAvailable": true,
+        "categoryId": "550e8400-e29b-41d4-a716-446655440000",
+        "providerId": "p2"
+    },
+    {
+        "id": "m9",
+        "title": "Spaghetti Bolognese",
+        "description": "Classic Italian meat sauce served over al dente spaghetti.",
+        "price": 13.50,
+        "imageUrl": "https://images.unsplash.com/photo-1598866503553-ac26f13675bc",
+        "isAvailable": true,
+        "categoryId": "123e4567-e89b-12d3-a456-426614174000",
+        "providerId": "p2"
+    },
+    {
+        "id": "m10",
+        "title": "Strawberry Cheesecake",
+        "description": "Rich cheesecake topped with fresh strawberries and glaze.",
+        "price": 7.50,
+        "imageUrl": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad",
+        "isAvailable": true,
+        "categoryId": "789f0123-ghij-4567-890k-112233445566",
+        "providerId": "p3"
+    },
+    {
+        "id": "m11",
+        "title": "Mango Smoothie",
+        "description": "Refreshing blend of ripe mangoes and yogurt.",
+        "price": 5.00,
+        "imageUrl": "https://images.unsplash.com/photo-1546173159-315724a9369b",
+        "isAvailable": true,
+        "categoryId": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+        "providerId": "p3"
+    },
+    {
+        "id": "m12",
+        "title": "Caesar Salad",
+        "description": "Romaine lettuce, croutons, and parmesan with Caesar dressing.",
+        "price": 9.00,
+        "imageUrl": "https://images.unsplash.com/photo-1550304943-4f24f54ddde9",
+        "isAvailable": true,
+        "categoryId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "providerId": "p1"
+    },
+    {
+        "id": "m13",
+        "title": "Mushroom Swiss Burger",
+        "description": "Beef patty topped with sautéed mushrooms and melted swiss cheese.",
+        "price": 13.99,
+        "imageUrl": "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5",
+        "isAvailable": true,
+        "categoryId": "550e8400-e29b-41d4-a716-446655440000",
+        "providerId": "p1"
+    },
+    {
+        "id": "m14",
+        "title": "Pepperoni Feast",
+        "description": "Loaded with spicy pepperoni and extra mozzarella cheese.",
+        "price": 17.50,
+        "imageUrl": "https://images.unsplash.com/photo-1628840042765-356cda07504e",
+        "isAvailable": true,
+        "categoryId": "672b1234-bcde-4567-8901-234567890abc",
+        "providerId": "p2"
+    },
+    {
+        "id": "m15",
+        "title": "Pesto Pasta",
+        "description": "Pasta tossed in fresh basil pesto with pine nuts.",
+        "price": 12.00,
+        "imageUrl": "https://images.unsplash.com/photo-1473093226795-af9932fe5856",
+        "isAvailable": true,
+        "categoryId": "123e4567-e89b-12d3-a456-426614174000",
+        "providerId": "p3"
+    },
+    {
+        "id": "m16",
+        "title": "Red Velvet Cupcake",
+        "description": "Classic red velvet cake with cream cheese frosting.",
+        "price": 3.50,
+        "imageUrl": "https://images.unsplash.com/photo-1614707267537-b85af00c4b81",
+        "isAvailable": true,
+        "categoryId": "789f0123-ghij-4567-890k-112233445566",
+        "providerId": "p1"
+    },
+    {
+        "id": "m17",
+        "title": "Lemonade",
+        "description": "Freshly squeezed lemons with a touch of mint.",
+        "price": 3.00,
+        "imageUrl": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd",
+        "isAvailable": true,
+        "categoryId": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+        "providerId": "p2"
+    },
+    {
+        "id": "m18",
+        "title": "Cobb Salad",
+        "description": "Mixed greens with chicken, avocado, egg, and bacon.",
+        "price": 11.50,
+        "imageUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
+        "isAvailable": true,
+        "categoryId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "providerId": "p3"
+    },
+    {
+        "id": "m19",
+        "title": "Spicy Zinger Burger",
+        "description": "Crispy fried chicken breast with spicy mayo and lettuce.",
+        "price": 11.99,
+        "imageUrl": "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2",
+        "isAvailable": true,
+        "categoryId": "550e8400-e29b-41d4-a716-446655440000",
+        "providerId": "p2"
+    },
+    {
+        "id": "m20",
+        "title": "Veggie Delight Pizza",
+        "description": "Bell peppers, olives, corn, and mushrooms on thin crust.",
+        "price": 13.00,
+        "imageUrl": "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47",
+        "isAvailable": true,
+        "categoryId": "672b1234-bcde-4567-8901-234567890abc",
+        "providerId": "p1"
+    },
+    {
+        "id": "m21",
+        "title": "Lasagna",
+        "description": "Layers of pasta, meat sauce, and melted mozzarella.",
+        "price": 14.99,
+        "imageUrl": "https://images.unsplash.com/photo-1574894709920-11b28e7367e3",
+        "isAvailable": true,
+        "categoryId": "123e4567-e89b-12d3-a456-426614174000",
+        "providerId": "p2"
+    },
+    {
+        "id": "m22",
+        "title": "Tiramisu",
+        "description": "Coffee-flavored Italian dessert with mascarpone cheese.",
+        "price": 8.00,
+        "imageUrl": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9",
+        "isAvailable": true,
+        "categoryId": "789f0123-ghij-4567-890k-112233445566",
+        "providerId": "p3"
+    },
+    {
+        "id": "m23",
+        "title": "Hot Chocolate",
+        "description": "Rich dark chocolate with whipped cream on top.",
+        "price": 4.00,
+        "imageUrl": "https://images.unsplash.com/photo-1544787210-282bd28bca1b",
+        "isAvailable": true,
+        "categoryId": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+        "providerId": "p1"
+    },
+    {
+        "id": "m24",
+        "title": "Quinoa Bowl",
+        "description": "Quinoa mixed with roasted vegetables and lemon vinaigrette.",
+        "price": 10.50,
+        "imageUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd",
+        "isAvailable": true,
+        "categoryId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "providerId": "p2"
+    },
+    {
+        "id": "m25",
+        "title": "Fish Fillet Burger",
+        "description": "Crispy fish fillet with tartar sauce and sliced cheese.",
+        "price": 12.50,
+        "imageUrl": "https://images.unsplash.com/photo-1521305916504-4a1121188589",
+        "isAvailable": true,
+        "categoryId": "550e8400-e29b-41d4-a716-446655440000",
+        "providerId": "p3"
+    },
+    {
+        "id": "m26",
+        "title": "Hawaiian Pizza",
+        "description": "Classic combination of pineapple, ham, and cheese.",
+        "price": 15.50,
+        "imageUrl": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38",
+        "isAvailable": true,
+        "categoryId": "672b1234-bcde-4567-8901-234567890abc",
+        "providerId": "p2"
+    },
+    {
+        "id": "m27",
+        "title": "Mac and Cheese",
+        "description": "Elbow macaroni in a creamy four-cheese sauce.",
+        "price": 9.99,
+        "imageUrl": "https://images.unsplash.com/photo-1543339308-43e59d6b73a6",
+        "isAvailable": true,
+        "categoryId": "123e4567-e89b-12d3-a456-426614174000",
+        "providerId": "p1"
+    },
+    {
+        "id": "m28",
+        "title": "Apple Pie",
+        "description": "Traditional apple pie with a flaky crust and cinnamon.",
+        "price": 5.50,
+        "imageUrl": "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2",
+        "isAvailable": true,
+        "categoryId": "789f0123-ghij-4567-890k-112233445566",
+        "providerId": "p2"
+    },
+    {
+        "id": "m29",
+        "title": "Fresh Orange Juice",
+        "description": "100% natural cold-pressed orange juice.",
+        "price": 4.00,
+        "imageUrl": "https://images.unsplash.com/photo-1613478223719-2ab802602423",
+        "isAvailable": true,
+        "categoryId": "a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d",
+        "providerId": "p3"
+    },
+    {
+        "id": "m30",
+        "title": "Fruit Salad",
+        "description": "A mix of seasonal fresh fruits with honey dressing.",
+        "price": 7.00,
+        "imageUrl": "https://images.unsplash.com/photo-1490818387583-1baba5e638af",
+        "isAvailable": true,
+        "categoryId": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "providerId": "p1"
+    }
+]

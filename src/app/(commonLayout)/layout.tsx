@@ -8,7 +8,7 @@ export default function CommonLayout({
 }) {
   return (
     <div className="max-w-screen-2xl mx-auto px-6">
-      <Navbar />
+      <Navbar className="sticky top-0 z-10 dark:bg-[#0a0a0a] bg-gray-50" />
       {children}
       <Footer />
     </div>

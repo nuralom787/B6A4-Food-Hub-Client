@@ -1,0 +1,9 @@
+[
+    {
+        "id": "off1",
+        "title": "Weekend Feast",
+        "discount": "20% OFF",
+        "description": "Get 20% off on all Burgers and Pizzas every Friday and Saturday.",
+        "code": "WEEKEND20"
+    }
+]
