@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { Navbar } from "@/components/layouts/navbar";
 import { Footer } from "@/components/layouts/footer";
+import { Toaster } from "sonner";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} antialiased dark:bg-[#0a0a0a] bg-gray-50`}
       >
+        <Toaster />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -1,15 +1,17 @@
-import React from 'react';
 import { Star, Clock, ShoppingCart, User, CheckCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from 'next/image';
+import AddToCartBtn from '@/components/modules/instance/addToCartBtn';
+import { id } from 'zod/v4/locales';
 
 
 const MealDetails = async ({ params, }: { params: Promise<{ mealId: string }> }) => {
     const { mealId } = await params;
 
     const meal = {
+        id: mealId,
         name: "Grilled Chicken Teriyaki Bowl",
         description: "Freshly grilled chicken served with steamed broccoli, carrots, and our signature teriyaki sauce over a bed of jasmine rice.",
         price: 12.99,
@@ -68,9 +70,7 @@ const MealDetails = async ({ params, }: { params: Promise<{ mealId: string }> })
                         </CardContent>
                     </Card>
                     <div className="flex gap-4 pt-4">
-                        <Button size="lg" className="flex-1 gap-2 cursor-pointer">
-                            <ShoppingCart size={20} /> Add to Cart
-                        </Button>
+                        <AddToCartBtn meal={meal} />
                         <Button size="lg" variant="outline" className=' cursor-pointer'>
                             Buy Now
                         </Button>
