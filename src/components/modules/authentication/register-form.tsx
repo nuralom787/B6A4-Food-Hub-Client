@@ -46,26 +46,27 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       name: "",
       email: "",
       password: "",
-      role: "",
+      role: "CUSTOMER",
     },
     validators: {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId = toast.loading("Creating user...");
+      console.log(value)
+      // const toastId = toast.loading("Creating user...");
 
-      try {
-        const { data, error } = await authClient.signUp.email(value);
+      // try {
+      //   const { data, error } = await authClient.signUp.email(value);
 
-        if (error) {
-          toast.error(error.message, { id: toastId });
-          return;
-        }
+      //   if (error) {
+      //     toast.error(error.message, { id: toastId });
+      //     return;
+      //   }
 
-        toast.success("User Created Successfully", { id: toastId });
-      } catch (err) {
-        toast.error("Something went wrong, please try again.", { id: toastId });
-      }
+      //   toast.success("User Created Successfully", { id: toastId });
+      // } catch (err) {
+      //   toast.error("Something went wrong, please try again.", { id: toastId });
+      // }
     },
   });
 
@@ -167,7 +168,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                         className="flex gap-6"
                       >
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="CUSTOMER" id="customer" />
+                          <RadioGroupItem defaultChecked value="CUSTOMER" id="customer" />
                           <Label htmlFor="customer">Customer</Label>
                         </div>
 
