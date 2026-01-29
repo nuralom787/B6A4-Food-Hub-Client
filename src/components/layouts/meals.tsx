@@ -1,7 +1,7 @@
 import { getMeals } from "@/app/actions/mealsAction";
 import MealCard from "./mealCard";
 
-const Meals = async () => {
+const Meals = async ({ totalData }: { totalData: number }) => {
     const { data: meals } = await getMeals();
 
     return (
@@ -12,7 +12,7 @@ const Meals = async () => {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {
-                    meals.slice(0, 12).map((meal: any) => (
+                    meals.slice(0, totalData ? totalData : 12).map((meal: any) => (
                         <MealCard key={meal.id} meal={meal} />
                     ))
                 }

@@ -58,19 +58,18 @@ const Navbar = ({
     alt: "logo",
   },
   menu = [
-    { title: "Home", url: "/" },
     {
-      title: "Blogs",
-      url: "/blogs",
+      title: "HOME",
+      url: "/"
     },
     {
-      title: "About",
-      url: "/about",
+      title: "MENUS",
+      url: "/menus",
     },
     {
-      title: "Dashboard",
-      url: "/dashboard",
-    },
+      title: "ORDERS",
+      url: "/orders",
+    }
   ],
   auth = {
     login: { title: "Login", url: "/login" },
@@ -100,7 +99,13 @@ const Navbar = ({
             <div className="flex items-center">
               <NavigationMenu>
                 <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item))}
+                  {menu.map((item) => <Link
+                    key={item.title}
+                    href={item.url}
+                    className="px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground rounded-md">
+                    {item.title}
+                  </Link>)
+                  }
                 </NavigationMenuList>
               </NavigationMenu>
             </div>
@@ -155,7 +160,13 @@ const Navbar = ({
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
-                    {menu.map((item) => renderMobileMenuItem(item))}
+                    {menu.map((item) => <Link
+                      key={item.title}
+                      href={item.url}
+                      className="text-md font-semibold">
+                      {item.title}
+                    </Link>)
+                    }
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
@@ -174,27 +185,6 @@ const Navbar = ({
         </div>
       </div>
     </section>
-  );
-};
-
-const renderMenuItem = (item: MenuItem) => {
-  return (
-    <NavigationMenuItem key={item.title}>
-      <NavigationMenuLink
-        asChild
-        className="group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:bg-muted hover:text-accent-foreground"
-      >
-        <Link href={item.url}>{item.title}</Link>
-      </NavigationMenuLink>
-    </NavigationMenuItem>
-  );
-};
-
-const renderMobileMenuItem = (item: MenuItem) => {
-  return (
-    <Link key={item.title} href={item.url} className="text-md font-semibold">
-      {item.title}
-    </Link>
   );
 };
 

@@ -37,9 +37,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar className="sticky top-0 z-10 bg-background dark:bg-gray-900" />
           {children}
-          <Footer />
         </ThemeProvider>
       </body>
     </html>
