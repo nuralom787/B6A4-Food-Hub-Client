@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ShoppingCart, Star } from "lucide-react";
+import Link from "next/link";
 
 interface MealProps {
     meal: {
@@ -16,7 +17,7 @@ interface MealProps {
 
 export default function MealCard({ meal }: MealProps) {
     return (
-        <div className="group bg-background rounded-tl-xl rounded-br-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full">
+        <Link href={`/meal/${meal.id}`} className="group bg-background rounded-tl-xl rounded-br-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full cursor-pointer">
             <div className="relative h-48 w-full overflow-hidden">
                 <Image
                     src={meal.imageUrl || "/placeholder-food.jpg"}
@@ -46,14 +47,15 @@ export default function MealCard({ meal }: MealProps) {
 
                 <p className="text-gray-500 dark:text-gray-300 text-sm line-clamp-2 mb-4 grow">
                     {meal.description}
-                </p><button
+                </p>
+                {/* <button
                     disabled={!meal.isAvailable}
                     className="w-full bg-gray-900 text-white py-3 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
                 >
                     <ShoppingCart className="w-5 h-5" />
                     Add to Cart
-                </button>
+                </button> */}
             </div>
-        </div>
+        </Link>
     );
 }

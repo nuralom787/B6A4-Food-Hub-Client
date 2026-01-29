@@ -115,28 +115,30 @@ const Navbar = ({
               </NavigationMenu>
             </div>
           </div>
-          {!session?.session ?
-            <div className="flex gap-2">
-              <ModeToggle />
-              <Button asChild variant="outline" className="cursor-pointer">
-                <Link href={auth.login.url}>{auth.login.title}</Link>
-              </Button>
-              <Button asChild variant="outline" className="cursor-pointer">
-                <Link href={auth.signup.url}>{auth.signup.title}</Link>
-              </Button>
-            </div>
-            :
-            <div className="flex gap-2">
-              <ModeToggle />
-              <Button
-                variant={"outline"}
-                className="cursor-pointer"
-                onClick={() => authClient.signOut()}
-              >
-                Logout
-              </Button>
-            </div>
-          }
+          <div>
+            {!session?.session ?
+              <div className="flex gap-2">
+                <ModeToggle />
+                <Button asChild variant="outline" className="cursor-pointer">
+                  <Link href={auth.login.url}>{auth.login.title}</Link>
+                </Button>
+                <Button asChild variant="outline" className="cursor-pointer">
+                  <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                </Button>
+              </div>
+              :
+              <div className="flex gap-2">
+                <ModeToggle />
+                <Button
+                  variant={"outline"}
+                  className="cursor-pointer"
+                  onClick={() => authClient.signOut()}
+                >
+                  Logout
+                </Button>
+              </div>
+            }
+          </div>
         </nav>
 
         {/* Mobile Menu */}
