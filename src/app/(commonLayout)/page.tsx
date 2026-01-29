@@ -1,10 +1,13 @@
 import { Hero } from "@/components/layouts/hero"
-import foodLogo from "../../../public/chiken.jpg";
 import Categories from "@/components/layouts/categories";
 import Meals from "@/components/layouts/meals";
 import Reviews from "@/components/layouts/reviews";
+import { userService } from "@/service/user.service";
 
 export default async function Home() {
+  const { data: session } = await userService.getSession();
+
+  console.log(session);
 
   return (
     <div className="space-y-2 md:space-y-6 lg:space-y-6">
@@ -14,7 +17,7 @@ export default async function Home() {
         description="Savor the taste of our delicious, expertly crafted dishes made with the finest ingredients, offering a perfect blend of flavors."
       />
       <Categories />
-      <Meals />
+      <Meals totalData={12} />
       <Reviews />
     </div>
   );

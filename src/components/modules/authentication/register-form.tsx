@@ -21,6 +21,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -52,21 +53,23 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value)
-      // const toastId = toast.loading("Creating user...");
+      // console.log(value)
 
-      // try {
-      //   const { data, error } = await authClient.signUp.email(value);
+      const toastId = toast.loading("Creating user...");
+      try {
+        const { data, error } = await authClient.signUp.email(value);
 
-      //   if (error) {
-      //     toast.error(error.message, { id: toastId });
-      //     return;
-      //   }
+        if (error) {
+          toast.error(error.message, { id: toastId });
+          return;
+        }
 
-      //   toast.success("User Created Successfully", { id: toastId });
-      // } catch (err) {
-      //   toast.error("Something went wrong, please try again.", { id: toastId });
-      // }
+        toast.success("User Created Successfully", { id: toastId });
+
+        redirect("/");
+      } catch (err) {
+        toast.error("Something went wrong, please try again.", { id: toastId });
+      }
     },
   });
 
@@ -190,14 +193,14 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-5 justify-end">
-        <Button form="login-form" type="submit" className="w-full">
+        <Button form="login-form" type="submit" className="w-full cursor-pointer">
           Register
         </Button>
         <Button
           onClick={() => handleGoogleLogin()}
           variant="outline"
           type="button"
-          className="w-full"
+          className="w-full cursor-pointer"
         >
           Continue with Google
         </Button>

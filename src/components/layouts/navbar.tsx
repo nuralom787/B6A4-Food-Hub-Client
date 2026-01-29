@@ -20,6 +20,8 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { ModeToggle } from "./ModeToggle";
+import { getSession } from "better-auth/api";
+import { authClient } from "@/lib/auth-client";
 
 interface MenuItem {
   title: string;
@@ -77,6 +79,9 @@ const Navbar = ({
   },
   className,
 }: Navbar1Props) => {
+  const { data: session } = authClient.useSession();
+  console.log("session from navbar: ", session)
+
   return (
     <section className={cn("py-4", className)}>
       <div className=" max-w-screen-2xl mx-auto px-6">
@@ -110,15 +115,28 @@ const Navbar = ({
               </NavigationMenu>
             </div>
           </div>
-          <div className="flex gap-2">
-            <ModeToggle />
-            <Button asChild variant="outline">
-              <Link href={auth.login.url}>{auth.login.title}</Link>
-            </Button>
-            <Button asChild variant="outline">
-              <Link href={auth.signup.url}>{auth.signup.title}</Link>
-            </Button>
-          </div>
+          {!session?.session ?
+            <div className="flex gap-2">
+              <ModeToggle />
+              <Button asChild variant="outline" className="cursor-pointer">
+                <Link href={auth.login.url}>{auth.login.title}</Link>
+              </Button>
+              <Button asChild variant="outline" className="cursor-pointer">
+                <Link href={auth.signup.url}>{auth.signup.title}</Link>
+              </Button>
+            </div>
+            :
+            <div className="flex gap-2">
+              <ModeToggle />
+              <Button
+                variant={"outline"}
+                className="cursor-pointer"
+                onClick={() => authClient.signOut()}
+              >
+                Logout
+              </Button>
+            </div>
+          }
         </nav>
 
         {/* Mobile Menu */}

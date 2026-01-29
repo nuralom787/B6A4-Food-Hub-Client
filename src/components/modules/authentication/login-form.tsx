@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
+import { redirect } from "next/navigation";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -56,6 +57,8 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
         }
 
         toast.success("User Logged in Successfully", { id: toastId });
+
+        redirect("/")
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }
@@ -127,14 +130,14 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-5 justify-end">
-        <Button form="login-form" type="submit" className="w-full">
+        <Button form="login-form" type="submit" className="w-full cursor-pointer">
           Login
         </Button>
         <Button
           onClick={() => handleGoogleLogin()}
           variant="outline"
           type="button"
-          className="w-full"
+          className="w-full cursor-pointer"
         >
           Continue with Google
         </Button>
