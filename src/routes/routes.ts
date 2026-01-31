@@ -27,6 +27,10 @@ export const providerRoutes: Route[] = [
         url: "/provider-dashboard/add-meal",
       },
       {
+        title: "Add Category",
+        url: "/provider-dashboard/add-category",
+      },
+      {
         title: "Manage Menus",
         url: "/provider-dashboard/manage-menus",
       },
@@ -46,20 +50,24 @@ export const adminRoutes: Route[] = [
         url: "/admin-dashboard/analytics",
       },
       {
-        title: "Customers",
-        url: "/admin-dashboard/customers",
-      },
-      {
-        title: "Providers",
-        url: "/admin-dashboard/providers",
-      },
-      {
         title: "Orders",
         url: "/admin-dashboard/orders",
       },
       {
         title: "Menus",
         url: "/admin-dashboard/menus",
+      },
+      {
+        title: "Categories",
+        url: "/admin-dashboard/categories",
+      },
+      {
+        title: "Customers",
+        url: "/admin-dashboard/customers",
+      },
+      {
+        title: "Providers",
+        url: "/admin-dashboard/providers",
       },
     ],
   },

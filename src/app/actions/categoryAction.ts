@@ -1,19 +1,41 @@
 "use server";
 
-import { promises as fs } from "fs";
-import path from "path";
+import { revalidatePath } from "next/cache";
 
-export async function getCategories() {
+const BACKEND_URL = process.env.BACKEND_URL;
+
+export const getCategories = async () => {
     try {
-        const filePath = path.join(process.cwd(), "/public/caregories.json");
+        const res = await fetch(`${BACKEND_URL}/api/category`);
 
-        const fileContent = await fs.readFile(filePath, "utf8");
+        if (!res.ok) {
+            return { success: false, message: "Something went wrong! Please Try Again." }
+        };
 
-        const categories = JSON.parse(fileContent);
-
-        return { success: true, data: categories };
+        const result = await res.json();
+        return { success: true, data: result };
     } catch (error) {
-        console.error("Error fetching categories:", error);
         return { success: false, message: "Something went wrong while fetching categories." };
+    }
+};
+
+export const createCategory = async (data: { name: string }) => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/category/create-category`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!res.ok) {
+            return { success: false, message: "Something went wrong! Please Try Again." }
+        };
+        const result = await res.json();
+        revalidatePath("/admin-dashboard/categories");
+        return { success: true, data: result };
+    } catch (error) {
+        return { success: false, message: "Something went wrong! Please Try Again." };
     }
 }

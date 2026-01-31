@@ -2,7 +2,7 @@
 
 export const createProvider = async (data: any) => {
     try {
-        const res = await fetch('http://localhost:5000/provider/create-profile', {
+        const res = await fetch(`${process.env.BACKEND_URL}/api/provider/create-profile`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
