@@ -22,7 +22,7 @@ const Hero = ({
             <p>
               {badge}
             </p>
-            <h1 className="text-4xl font-bold text-pretty lg:text-6xl">
+            <h1 className="text-4xl font-bold text-pretty lg:text-6xl uppercase italic">
               {heading}
             </h1>
             <p className="max-w-xl text-muted-foreground lg:text-xl">

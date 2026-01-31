@@ -4,12 +4,16 @@ export const customerRoutes: Route[] = [
   {
     items: [
       {
-        title: "Create Blog",
-        url: "/dashboard/create-blogs",
+        title: "My Orders",
+        url: "/dashboard/my-orders",
       },
       {
-        title: "History",
-        url: "/dashboard/history",
+        title: "Reviews",
+        url: "/dashboard/reviews",
+      },
+      {
+        title: "Profile",
+        url: "/dashboard/profile",
       },
     ],
   },
@@ -19,12 +23,16 @@ export const providerRoutes: Route[] = [
   {
     items: [
       {
-        title: "Create Blog",
-        url: "/dashboard/create-blogs",
+        title: "Add Meal",
+        url: "/provider-dashboard/add-meal",
       },
       {
-        title: "History",
-        url: "/dashboard/history",
+        title: "Manage Menus",
+        url: "/provider-dashboard/manage-menus",
+      },
+      {
+        title: "View Orders",
+        url: "/provider-dashboard/view-orders",
       },
     ],
   },
@@ -35,7 +43,23 @@ export const adminRoutes: Route[] = [
     items: [
       {
         title: "Analytics",
-        url: "/analytics",
+        url: "/admin-dashboard/analytics",
+      },
+      {
+        title: "Customers",
+        url: "/admin-dashboard/customers",
+      },
+      {
+        title: "Providers",
+        url: "/admin-dashboard/providers",
+      },
+      {
+        title: "Orders",
+        url: "/admin-dashboard/orders",
+      },
+      {
+        title: "Menus",
+        url: "/admin-dashboard/menus",
       },
     ],
   },
