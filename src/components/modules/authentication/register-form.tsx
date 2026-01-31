@@ -1,5 +1,6 @@
 "use client";
 
+import { createProvider } from "@/app/actions/providerAction";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,7 +23,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
 import { redirect } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -34,7 +35,7 @@ const formSchema = z.object({
   businessName: z.string(),
   address: z.string(),
   description: z.string(),
-  imageUrl: z.url(),
+  imageUrl: z.string(),
 });
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
@@ -64,23 +65,37 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value)
+      const toastId = toast.loading("Creating user...");
 
-      // const toastId = toast.loading("Creating user...");
-      // try {
-      //   const { data, error } = await authClient.signUp.email(value);
+      try {
+        const data = { name: value.name, email: value.email, password: value.password, role: value.role, }
+        const { data: signUpData, error } = await authClient.signUp.email(data);
 
-      //   if (error) {
-      //     toast.error(error.message, { id: toastId });
-      //     return;
-      //   }
+        if (error) {
+          toast.error(error.message, { id: toastId });
+          return;
+        };
 
-      //   toast.success("User Created Successfully", { id: toastId });
+        if (value.role === "PROVIDER") {
+          const data = { businessName: value.businessName, address: value.address, description: value.description, imageUrl: value.imageUrl, userId: signUpData.user.id };
 
-      //   redirect("/");
-      // } catch (err) {
-      //   toast.error("Something went wrong, please try again.", { id: toastId });
-      // }
+          const result = await createProvider(data);
+
+          if (!result.success) {
+            return toast.error(result.message || "Failed to create provider profile", { id: toastId });
+          }
+
+          return toast.success("User Created Successfully with Provider Profile", { id: toastId });
+        }
+
+        if (signUpData.token) {
+          toast.success("User Created Successfully", { id: toastId });
+          redirect("/");
+        }
+      }
+      catch (err) {
+        // return toast.error("Something went wrong, please try again.", { id: toastId });
+      }
     },
   });
 

@@ -16,4 +16,4 @@ export async function getMeals() {
         console.error("Error fetching meals:", error);
         return { success: false, message: "Something went wrong while fetching meals." };
     }
-}
+};

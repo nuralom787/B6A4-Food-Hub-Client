@@ -5,9 +5,6 @@ import Reviews from "@/components/layouts/reviews";
 import { userService } from "@/service/user.service";
 
 export default async function Home() {
-  const { data: session } = await userService.getSession();
-
-  console.log(session);
 
   return (
     <div className="space-y-2 md:space-y-6 lg:space-y-6">

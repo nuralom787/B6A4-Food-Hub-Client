@@ -6,31 +6,34 @@ export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   let isAuthenticated = false;
+  let isCustomer = false;
+  let isProvider = false;
   let isAdmin = false;
 
   const { data } = await userService.getSession();
 
   if (data) {
-    isAuthenticated = true;
+    isAuthenticated = true
+    isCustomer = data.user.role === Roles.customer;
+    isProvider = data.user.role === Roles.provider;
     isAdmin = data.user.role === Roles.admin;
-  }
+  };
 
-  //* User in not authenticated at all
   if (!isAuthenticated) {
     return NextResponse.redirect(new URL("/login", request.url));
-  }
+  };
 
-  //* User is authenticated and role = ADMIN
-  //* User can not visit user dashboard
-  if (isAdmin && pathname.startsWith("/dashboard")) {
-    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
-  }
-
-  //* User is authenticated and role = USER
-  //* User can not visit admin-dashboard
-  if (!isAdmin && pathname.startsWith("/admin-dashboard")) {
+  if (isCustomer && (pathname.startsWith("/admin-dashboard") || pathname.startsWith("/provider-dashboard"))) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
+  };
+
+  if (isProvider && (pathname.startsWith("/dashboard") || pathname.startsWith("/admin-dashboard"))) {
+    return NextResponse.redirect(new URL("/provider-dashboard", request.url));
+  };
+
+  if (isAdmin && (pathname.startsWith("/dashboard") || pathname.startsWith("/provider-dashboard"))) {
+    return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+  };
 
   return NextResponse.next();
 }

@@ -22,6 +22,7 @@ import Image from "next/image";
 import { ModeToggle } from "./ModeToggle";
 import { authClient } from "@/lib/auth-client";
 import CartNavbarItem from "../modules/instance/cartNavbarItem";
+import DashboardBtn from "./dashboardBtn";
 
 interface MenuItem {
   title: string;
@@ -53,6 +54,7 @@ interface Navbar1Props {
   };
 }
 
+
 const Navbar = ({
   logo = {
     url: "/",
@@ -69,8 +71,8 @@ const Navbar = ({
       url: "/menus",
     },
     {
-      title: "ORDERS",
-      url: "/orders",
+      title: "PROVIDERS",
+      url: "/providers",
     }
   ],
   auth = {
@@ -114,7 +116,7 @@ const Navbar = ({
               </NavigationMenu>
             </div>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <CartNavbarItem />
             <ModeToggle />
             {!session?.session ?
@@ -128,13 +130,7 @@ const Navbar = ({
               </div>
               :
               <div className="flex gap-2">
-                <Button
-                  variant={"outline"}
-                  className="cursor-pointer"
-                  onClick={() => authClient.signOut()}
-                >
-                  Logout
-                </Button>
+                <DashboardBtn />
               </div>
             }
           </div>
