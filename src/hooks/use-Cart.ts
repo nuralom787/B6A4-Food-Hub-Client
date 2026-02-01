@@ -3,9 +3,9 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface CartItem {
     id: string;
-    name: string;
+    title: string;
     price: number;
-    image: string;
+    imageUrl: string;
     quantity: number;
 }
 

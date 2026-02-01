@@ -69,10 +69,6 @@ const Navbar = ({
     {
       title: "MENUS",
       url: "/menus",
-    },
-    {
-      title: "PROVIDERS",
-      url: "/providers",
     }
   ],
   auth = {

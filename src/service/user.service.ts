@@ -24,7 +24,7 @@ export const userService = {
       }
 
       if (session.user.role === "PROVIDER") {
-        const res = await fetch(`${BACKEND_URL}/api/provider?id=${session?.user.id}`);
+        const res = await fetch(`${BACKEND_URL}/api/providers?id=${session?.user.id}`);
         const providerRes = await res.json();
         providerData = providerRes;
       }

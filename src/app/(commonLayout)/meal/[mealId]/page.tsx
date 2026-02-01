@@ -1,16 +1,17 @@
-import { Star, Clock, ShoppingCart, User, CheckCircle } from 'lucide-react';
+import { Star, User, CheckCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from 'next/image';
 import AddToCartBtn from '@/components/modules/instance/addToCartBtn';
 import { getSingleMeal } from '@/app/actions/mealsAction';
+import { Review } from '@/types/review.types';
+import Link from 'next/link';
 
 
 const MealDetails = async ({ params, }: { params: Promise<{ mealId: string }> }) => {
     const { mealId } = await params;
     const { data } = await getSingleMeal(mealId);
-
     const meal = data.meal;
 
     // const meal = {
@@ -38,24 +39,27 @@ const MealDetails = async ({ params, }: { params: Promise<{ mealId: string }> })
                         fill
                         className="w-full h-full"
                     />
-                    {/* <Badge className="absolute top-4 left-4 bg-green-500">{meal.category}</Badge> */}
+                    <Badge className="absolute top-4 left-4 bg-green-500">{meal.category.name}</Badge>
                 </div>
                 <div className="flex flex-col space-y-5">
                     <div>
                         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">{meal.title}</h1>
-                        <div className="flex items-center mt-2 space-x-4">
+                        {/* <div className="flex items-center mt-2 space-x-4">
                             <div className="flex items-center text-yellow-500">
-                                <Star size={18} fill="currentColor" />
+                            <Star size={18} fill="currentColor" />
                                 <span className="ml-1 font-semibold text-orange-500">{meal.rating}</span>
                             </div>
-                            <span className="text-gray-400">({meal.reviewsCount} Reviews)</span>
+                            <span className="text-gray-400">({meal.reviews.length} Reviews)</span>
                             <span className="flex items-center text-gray-500">
                                 <Clock size={18} className="mr-1" /> {meal.prepTime}
                             </span>
-                        </div>
+                        </div> */}
                     </div>
                     <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                         {meal.description}
+                    </p>
+                    <p className='font-medium text-base uppercase'>
+                        Status: <span className='text-green-400'>{meal.isAvailable === true ? "Available" : "Not Available"}</span>
                     </p>
                     <div className="text-3xl font-bold text-primary">
                         ${meal.price}
@@ -67,7 +71,7 @@ const MealDetails = async ({ params, }: { params: Promise<{ mealId: string }> })
                             </div>
                             <div>
                                 <p className="text-sm text-gray-500 dark:text-gray-200 italic">Provided by</p>
-                                <p className="font-semibold text-gray-800 dark:text-gray-200">{meal.provider}</p>
+                                <Link href={`/providers/${meal.provider.id}`} className="font-semibold text-gray-800 dark:text-gray-200 hover:underline hover:text-green-700 dark:hover:text-green-700">{meal.provider.businessName}</Link>
                             </div>
                             <CheckCircle size={16} className="text-blue-500 ml-auto" />
                         </CardContent>
@@ -82,13 +86,26 @@ const MealDetails = async ({ params, }: { params: Promise<{ mealId: string }> })
             </div>
             <div className="mt-16 border-t pt-8">
                 <h3 className="text-2xl font-bold mb-6">Customer Reviews</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="p-4 border rounded-xl shadow-sm bg-white">
-                        <div className="flex text-yellow-500 mb-2"><Star size={14} fill="currentColor" /> <Star size={14} fill="currentColor" /> <Star size={14} fill="currentColor" /></div>
-                        <p className="text-sm text-gray-600">"The taste was amazing! High quality ingredients."</p>
-                        <p className="text-xs mt-3 font-bold text-gray-400">- User Name</p>
+                {meal.reviews.length ?
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {
+                            meal.reviews.map((review: Review) => <div
+                                key={review.id}
+                                className="p-4 border rounded-xl shadow-sm bg-white"
+                            >
+                                <div className="flex text-yellow-500 mb-2"><Star size={14} fill="currentColor" />
+                                    <Star size={14} fill="currentColor" /> <Star size={14} fill="currentColor" />
+                                </div>
+                                <p className="text-sm text-gray-600">"The taste was amazing! High quality ingredients."</p>
+                                <p className="text-xs mt-3 font-bold text-gray-400">- User Name</p>
+                            </div>)
+                        }
                     </div>
-                </div>
+                    :
+                    <div className=''>
+                        <p className='font-semibold text-lg text-gray-400'>No Review On This Product</p>
+                    </div>
+                }
             </div>
         </div>
     );

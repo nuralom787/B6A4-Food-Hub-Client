@@ -42,7 +42,11 @@ export const config = {
   matcher: [
     "/dashboard",
     "/dashboard/:path*",
+    "/provider-dashboard",
+    "/provider-dashboard/:path*",
     "/admin-dashboard",
     "/admin-dashboard/:path*",
+    "/user",
+    "/user/:path*",
   ],
 };

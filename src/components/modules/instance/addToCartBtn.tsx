@@ -1,22 +1,36 @@
 "use client"
 
+import { addToCartAction } from "@/app/actions/cartAction";
 import { Button } from "@/components/ui/button"
-import { useCartStore } from "@/hooks/use-Cart";
+import { authClient } from "@/lib/auth-client";
 import { ShoppingCart } from "lucide-react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const AddToCartBtn = ({ meal }: { meal: any }) => {
-    const addToCart = useCartStore((state) => state.addToCart);
+    const { data: session } = authClient.useSession();
+    const userId = session?.user.id as string;
 
-    const handleAdd = () => {
-        addToCart({
-            id: meal.id,
-            name: meal.name,
-            price: meal.price,
-            image: meal.image,
-            quantity: 1
-        });
-        toast.success("Add to cart successfully!");
+    const handleAdd = async () => {
+        if (!userId) {
+            Swal.fire({
+                title: "No User",
+                text: "Please login with your account!",
+                icon: "warning"
+            });
+            return;
+        };
+
+        const mealData = { meal, userId }
+
+        toast.promise(
+            addToCartAction(mealData),
+            {
+                pending: "Adding into cart...",
+                success: "Successfully Added 🛒",
+                error: "somethings went Wrong! please try again ❌",
+            }
+        );
     };
 
     return (
