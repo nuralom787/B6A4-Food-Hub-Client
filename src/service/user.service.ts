@@ -2,13 +2,13 @@ import { env } from "@/env";
 import { cookies } from "next/headers";
 
 const AUTH_URL = env.AUTH_URL;
+const BACKEND_URL = env.BACKEND_URL;
 
 export const userService = {
   getSession: async function () {
+    let providerData;
     try {
       const cookieStore = await cookies();
-
-      // console.log(cookieStore.toString());
 
       const res = await fetch(`${AUTH_URL}/get-session`, {
         headers: {
@@ -22,6 +22,13 @@ export const userService = {
       if (session === null) {
         return { data: null, error: { message: "Session is missing." } };
       }
+
+      if (session.user.role === "PROVIDER") {
+        const res = await fetch(`${BACKEND_URL}/api/provider?id=${session?.user.id}`);
+        const providerRes = await res.json();
+        providerData = providerRes;
+      }
+      session.user.providerProfile = providerData;
 
       return { data: session, error: null };
     } catch (err) {

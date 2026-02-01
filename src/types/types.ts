@@ -1,10 +1,10 @@
 export interface Meal {
-    id: string
+    id?: string
     title: string
     description: string
     price: number
-    imageUrl: string
-    isAvailable: boolean
+    imageUrl?: string
+    isAvailable?: boolean
     categoryId: string
     providerId: string
 }

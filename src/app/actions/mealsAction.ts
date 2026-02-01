@@ -1,19 +1,60 @@
 "use server";
 
-import { promises as fs } from "fs";
-import path from "path";
+import { Meal } from "@/types/types";
 
-export async function getMeals() {
+const BACKEND_URL = process.env.BACKEND_URL;
+
+export const getMeals = async () => {
     try {
-        const filePath = path.join(process.cwd(), "/public/meals.json");
+        const res = await fetch(`${BACKEND_URL}/api/meals`);
 
-        const fileContent = await fs.readFile(filePath, "utf8");
+        if (!res.ok) {
+            return { success: false, message: "Something went wrong while fetching meals." }
+        };
 
-        const meals = JSON.parse(fileContent);
-
+        const meals = await res.json();
         return { success: true, data: meals };
     } catch (error) {
         console.error("Error fetching meals:", error);
+        return { success: false, message: "Something went wrong while fetching meals." };
+    }
+};
+
+export const getSingleMeal = async (id: string) => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/meals/${id}`);
+
+        if (!res.ok) {
+            return { success: false, message: "Something went wrong while fetching meals." }
+        };
+
+        const meal = await res.json();
+        return { success: true, data: meal };
+    } catch (error) {
+        console.error("Error fetching meals:", error);
+        return { success: false, message: "Something went wrong while fetching meals." };
+    }
+};
+
+export const createMeals = async (data: Meal) => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/meals`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!res.ok) {
+            return { success: false, message: "Something went wrong! Please Try Again." }
+        };
+
+        const result = await res.json();
+
+        return { success: true, data: result };
+    } catch (error) {
+        // console.error("Error fetching meals:", error);
         return { success: false, message: "Something went wrong while fetching meals." };
     }
 };

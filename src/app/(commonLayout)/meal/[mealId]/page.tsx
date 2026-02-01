@@ -4,42 +4,45 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from 'next/image';
 import AddToCartBtn from '@/components/modules/instance/addToCartBtn';
-import { id } from 'zod/v4/locales';
+import { getSingleMeal } from '@/app/actions/mealsAction';
 
 
 const MealDetails = async ({ params, }: { params: Promise<{ mealId: string }> }) => {
     const { mealId } = await params;
+    const { data } = await getSingleMeal(mealId);
 
-    const meal = {
-        id: mealId,
-        name: "Grilled Chicken Teriyaki Bowl",
-        description: "Freshly grilled chicken served with steamed broccoli, carrots, and our signature teriyaki sauce over a bed of jasmine rice.",
-        price: 12.99,
-        image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
-        provider: "Health Kitchen BD",
-        rating: 4.8,
-        reviewsCount: 124,
-        prepTime: "20-30 min",
-        category: "Healthy",
-        status: "Available"
-    };
+    const meal = data.meal;
+
+    // const meal = {
+    //     id: mealId,
+    //     title: "Grilled Chicken Teriyaki Bowl",
+    //     description: "Freshly grilled chicken served with steamed broccoli, carrots, and our signature teriyaki sauce over a bed of jasmine rice.",
+    //     price: 12.99,
+    //     imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+    //     providerId: "Health Kitchen BD",
+    //     rating: 4.8,
+    //     reviewsCount: 124,
+    //     prepTime: "20-30 min",
+    //     categoryId: "Healthy",
+    //     isAvailable: "Available"
+    // };
 
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="relative rounded-2xl overflow-hidden shadow-lg w-full h-full">
                     <Image
-                        src={meal.image}
-                        alt={meal.name}
+                        src={meal.imageUrl}
+                        alt={meal.title}
                         loading='lazy'
                         fill
                         className="w-full h-full"
                     />
-                    <Badge className="absolute top-4 left-4 bg-green-500">{meal.category}</Badge>
+                    {/* <Badge className="absolute top-4 left-4 bg-green-500">{meal.category}</Badge> */}
                 </div>
                 <div className="flex flex-col space-y-5">
                     <div>
-                        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">{meal.name}</h1>
+                        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">{meal.title}</h1>
                         <div className="flex items-center mt-2 space-x-4">
                             <div className="flex items-center text-yellow-500">
                                 <Star size={18} fill="currentColor" />

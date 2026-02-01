@@ -27,10 +27,6 @@ export const providerRoutes: Route[] = [
         url: "/provider-dashboard/add-meal",
       },
       {
-        title: "Add Category",
-        url: "/provider-dashboard/add-category",
-      },
-      {
         title: "Manage Menus",
         url: "/provider-dashboard/manage-menus",
       },
