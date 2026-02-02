@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Swal from 'sweetalert2'
-import { getCartAction } from "@/app/actions/cartAction";
+import { getCartAction, removeFromCartAction } from "@/app/actions/cartAction";
 import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 
-interface Cart {
+export interface Cart {
     id: string;
     userId: string;
     items: object[];
@@ -43,14 +43,16 @@ const CartPage = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                // removeFromCart(id)
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Item remove from cart successfully",
-                    icon: "success"
-                });
+                const res = await removeFromCartAction(id);
+                if (res.success) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Item remove from cart successfully",
+                        icon: "success"
+                    });
+                }
             }
         });
     }

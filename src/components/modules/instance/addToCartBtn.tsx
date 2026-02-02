@@ -1,13 +1,15 @@
-"use client"
+"use client";
 
 import { addToCartAction } from "@/app/actions/cartAction";
 import { Button } from "@/components/ui/button"
 import { authClient } from "@/lib/auth-client";
 import { ShoppingCart } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const AddToCartBtn = ({ meal }: { meal: any }) => {
+    const router = useRouter();
     const { data: session } = authClient.useSession();
     const userId = session?.user.id as string;
 
@@ -23,14 +25,22 @@ const AddToCartBtn = ({ meal }: { meal: any }) => {
 
         const mealData = { meal, userId }
 
-        toast.promise(
-            addToCartAction(mealData),
+        const promise = addToCartAction(mealData);
+
+        toast.promise(promise,
             {
                 pending: "Adding into cart...",
                 success: "Successfully Added 🛒",
                 error: "somethings went Wrong! please try again ❌",
             }
         );
+
+        promise.then((res) => {
+            if (res?.success) {
+                console.log("Promise Data: ", res)
+                router.refresh();
+            }
+        });
     };
 
     return (

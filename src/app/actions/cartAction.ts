@@ -1,8 +1,22 @@
 "use server";
 
 import { env } from "@/env";
+import { updateTag } from "next/cache";
 
 const BACKEND_URL = env.BACKEND_URL;
+
+export const getCartAction = async (userId: string) => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/cart/${userId}`, { next: { tags: ["cart"] } });
+
+        const data = await res.json();
+
+        return { success: true, data };
+    }
+    catch (err) {
+        return { success: false, message: "Internal Server Error" }
+    }
+};
 
 export const addToCartAction = async (data: { meal: object, userId: string }) => {
     try {
@@ -15,6 +29,7 @@ export const addToCartAction = async (data: { meal: object, userId: string }) =>
         });
 
         const result = await res.json();
+        updateTag("cart");
 
         return { success: true, result };
     }
@@ -24,19 +39,6 @@ export const addToCartAction = async (data: { meal: object, userId: string }) =>
 
 };
 
-export const getCartAction = async (userId: string) => {
-    try {
-        const res = await fetch(`${BACKEND_URL}/api/cart/${userId}`);
-
-        const data = await res.json();
-
-        return { success: true, data };
-    }
-    catch (err) {
-        return { success: false, message: "Internal Server Error" }
-    }
-};
-
 export const removeFromCartAction = async (cartItemId: string) => {
     try {
         const res = await fetch(`${BACKEND_URL}/api/cart/${cartItemId}`, {
@@ -44,6 +46,7 @@ export const removeFromCartAction = async (cartItemId: string) => {
         });
 
         const data = await res.json();
+        updateTag("cart")
 
         return { success: true, data: data };
     }

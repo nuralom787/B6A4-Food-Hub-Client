@@ -2,34 +2,30 @@
 
 import { useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
-import { useCartStore } from "../../../hooks/use-Cart";
 import Link from "next/link";
+import { getCartAction } from "@/app/actions/cartAction";
+import { authClient } from "@/lib/auth-client";
+import { Cart } from "@/app/(commonLayout)/user/cart/page";
 
 const CartNavbarItem = () => {
-    const cart = useCartStore((state) => state.cart);
-    const [mounted, setMounted] = useState(false);
+    const { data: session } = authClient.useSession();
+    const [cart, setCart] = useState<Cart>();
 
     useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) {
-        return (
-            <Link href="/user/cart" className="relative border-none outline-none cursor-pointer hover:bg-transparent" >
-                <ShoppingCart size={25} />
-            </Link>
-        );
-    }
-
-    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+        const loadCart = async () => {
+            const cart = await getCartAction(session?.user.id as string);
+            setCart(cart.data)
+        }
+        loadCart()
+    }, [session])
 
     return (
         <Link href="/user/cart" className="relative border-none outline-none cursor-pointer hover:bg-transparent" >
             <ShoppingCart size={25} />
             {
-                totalItems > 0 && (
+                cart?.total_count as number > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center animate-in zoom-in" >
-                        {totalItems}
+                        {cart?.total_count as number}
                     </span>
                 )
             }
