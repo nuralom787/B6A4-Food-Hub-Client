@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getCategories } from '@/app/actions/categoryAction';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';

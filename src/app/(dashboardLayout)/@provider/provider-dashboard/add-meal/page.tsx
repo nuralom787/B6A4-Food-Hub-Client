@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import MealForm from "@/components/modules/meals/meal-form";
 import { userService } from "@/service/user.service";
 
