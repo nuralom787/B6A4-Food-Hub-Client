@@ -2,12 +2,20 @@
 
 import { Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Swal from 'sweetalert2'
 import { getCartAction, removeFromCartAction } from "@/app/actions/cartAction";
 import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
+import Link from 'next/link';
+import { getAddress } from '@/app/actions/addAddressAction';
+import { createOrder } from '@/app/actions/orderAction';
+import { toast } from 'react-toastify';
+
+import { env } from "@/env";
+
+const NEXT_PUBLIC_BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL
 
 export interface Cart {
     id: string;
@@ -19,20 +27,44 @@ export interface Cart {
     total: number;
     createdAt: Date;
     updatedAt: Date;
-}
+};
+
+export interface Address {
+    id: string
+    userId: string,
+    addressLine: string,
+    city: string,
+    area: string
+    createdAt: Date
+    updatedAt: Date
+};
+
+export interface Item {
+    mealId: string
+    quantity: string
+    price: number
+};
+
 
 const CartPage = () => {
     const [cart, setCart] = useState<Cart>();
+    const [addresses, setAddresses] = useState([]);
     const { data: session } = authClient.useSession();
 
     useEffect(() => {
         const loadCart = async () => {
             const cart = await getCartAction(session?.user.id as string);
-            console.log(cart)
+            // console.log(cart)
             setCart(cart.data)
-        }
-        loadCart()
-    }, [session])
+        };
+        loadCart();
+        const loadAddress = async () => {
+            const addresses = await getAddress(session?.user.id as string);
+            // console.log(addresses)
+            setAddresses(addresses.res)
+        };
+        loadAddress();
+    }, [session]);
 
     const handleRemoveCart = async (id: string) => {
         Swal.fire({
@@ -55,13 +87,56 @@ const CartPage = () => {
                 }
             }
         });
+    };
+
+    const placeOrder = async () => {
+        const { addressLine, city, area } = addresses[0];
+        const menuItems = cart?.items as Item[];
+
+        const customerId = session?.user.id;
+        const totalAmount = Number(cart?.total.toFixed(2));
+        const orderItems = menuItems?.map(item => ({
+            mealId: item.mealId,
+            quantity: item.quantity,
+            price: item.price
+        }));
+        const deliveryAddress = `${addressLine}, ${city}, ${area}`;
+
+        const data = { customerId, totalAmount, orderItems, deliveryAddress };
+
+        const createOrder = async () => {
+            const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/orders/placed-order`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+
+            return result;
+        };
+
+        toast.promise(createOrder(),
+            {
+                pending: "Placing Your Order...",
+                success: "Order Placed Successfully.",
+                error: "somethings went Wrong! please try again ❌",
+            }
+        );
     }
 
     return (
         <div className="my-16">
-            <h1 className="text-2xl font-bold mb-8 flex items-center gap-2">
-                <ShoppingBag className="text-primary" />Total Item's In Cart ({cart?.total_count})
-            </h1>
+            <div className='flex items-center justify-between gap-6'>
+                <h1 className="text-2xl font-bold flex items-center gap-2">
+                    <ShoppingBag className="text-primary" />Total Item's In Cart ({cart?.total_count})
+                </h1>
+                <Button asChild variant={"outline"}>
+                    <Link href={"/user/add-address"}>Add Address</Link>
+                </Button>
+            </div>
             <div className="container mx-auto p-10 bg-white dark:bg-slate-800 rounded-md my-10">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     <div className="lg:col-span-2 space-y-4">
@@ -99,8 +174,22 @@ const CartPage = () => {
                         ))}
                     </div>
                     <div className="lg:col-span-1">
-                        <Card className="sticky top-24 py-0">
-                            <CardContent className="p-6">
+                        <Card className="sticky top-24 py-6">
+                            <CardHeader>
+                                <h2 className="text-xl font-bold mb-4">Addresses</h2>
+                                <div className='grid grid-cols-1 gap-3'>
+                                    {
+                                        addresses.map((address: Address) => <div
+                                            key={address.id}
+                                            className='border border-gray-400 rounded-md p-4'
+                                        >
+                                            <p className='text-base font-semibold'>{address.addressLine}</p>
+                                            <small className='text-sm font-medium'>{address.city}</small>
+                                        </div>)
+                                    }
+                                </div>
+                            </CardHeader>
+                            <CardContent className="">
                                 <h2 className="text-xl font-bold mb-4">Order Summery</h2>
                                 <div className="space-y-3">
                                     <div className="flex justify-between text-gray-400 font-medium">
@@ -117,8 +206,15 @@ const CartPage = () => {
                                         <span className="text-red-500 dark:text-white">${cart?.total.toFixed(2)}</span>
                                     </div>
                                 </div>
-                                <Button disabled={!cart?.items.length} variant={"outline"} className="w-full mt-6 py-6 text-lg gap-2 cursor-pointer">
-                                    Checkout <ArrowRight size={20} />
+                                <Button
+                                    onClick={placeOrder}
+                                    variant={"outline"}
+                                    disabled={!cart?.items.length}
+                                    className="w-full mt-6 py-6 text-lg gap-2 cursor-pointer"
+                                >
+                                    Placed Order <ArrowRight size={20} />
+                                    {/* <Link href={"/user/checkout"}> */}
+                                    {/* </Link> */}
                                 </Button>
                             </CardContent>
                         </Card>
