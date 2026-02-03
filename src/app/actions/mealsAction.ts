@@ -2,11 +2,11 @@
 
 import { Meal } from "@/types/types";
 
-const BACKEND_URL = process.env.BACKEND_URL;
+const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getMeals = async () => {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/meals`);
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/meals`);
 
         if (!res.ok) {
             return { success: false, message: "Something went wrong while fetching meals." }
@@ -22,7 +22,7 @@ export const getMeals = async () => {
 
 export const getSingleMeal = async (id: string) => {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/meals/${id}`);
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/meals/${id}`);
 
         if (!res.ok) {
             return { success: false, message: "Something went wrong while fetching meals." }
@@ -38,7 +38,7 @@ export const getSingleMeal = async (id: string) => {
 
 export const createMeals = async (data: Meal) => {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/meals`, {
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/meals`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

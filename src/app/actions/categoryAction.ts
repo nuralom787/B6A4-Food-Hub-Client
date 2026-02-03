@@ -2,11 +2,11 @@
 
 import { revalidatePath } from "next/cache";
 
-const BACKEND_URL = process.env.BACKEND_URL;
+const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getCategories = async () => {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/category`);
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/category`);
 
         if (!res.ok) {
             return { success: false, message: "Something went wrong! Please Try Again." }
@@ -21,7 +21,7 @@ export const getCategories = async () => {
 
 export const createCategory = async (data: { name: string }) => {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/category/create-category`, {
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/category/create-category`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"

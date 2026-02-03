@@ -2,7 +2,7 @@ import { env } from "@/env";
 import { cookies } from "next/headers";
 
 const AUTH_URL = env.AUTH_URL;
-const BACKEND_URL = env.BACKEND_URL;
+const NEXT_PUBLIC_BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL;
 
 export const userService = {
   getSession: async function () {
@@ -24,7 +24,7 @@ export const userService = {
       }
 
       if (session.user.role === "PROVIDER") {
-        const res = await fetch(`${BACKEND_URL}/api/providers?id=${session?.user.id}`);
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/providers?id=${session?.user.id}`);
         const providerRes = await res.json();
         providerData = providerRes;
       }

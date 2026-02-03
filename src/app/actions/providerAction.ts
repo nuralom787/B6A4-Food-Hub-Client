@@ -2,7 +2,7 @@
 
 export const createProvider = async (data: any) => {
     try {
-        const res = await fetch(`${process.env.BACKEND_URL}/api/providers/create-profile`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/providers/create-profile`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,7 +22,7 @@ export const createProvider = async (data: any) => {
 
 export const getSingleProvider = async (id: string) => {
     try {
-        const res = await fetch(`${process.env.BACKEND_URL}/api/providers/${id}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/providers/${id}`);
 
         const result = await res.json();
 

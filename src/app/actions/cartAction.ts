@@ -3,11 +3,11 @@
 import { env } from "@/env";
 import { updateTag } from "next/cache";
 
-const BACKEND_URL = env.BACKEND_URL;
+const NEXT_PUBLIC_BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getCartAction = async (userId: string) => {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/cart/${userId}`, { next: { tags: ["cart"] } });
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/cart/${userId}`, { next: { tags: ["cart"] } });
 
         const data = await res.json();
 
@@ -20,7 +20,7 @@ export const getCartAction = async (userId: string) => {
 
 export const addToCartAction = async (data: { meal: object, userId: string }) => {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/cart`, {
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/cart`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -41,7 +41,7 @@ export const addToCartAction = async (data: { meal: object, userId: string }) =>
 
 export const removeFromCartAction = async (cartItemId: string) => {
     try {
-        const res = await fetch(`${BACKEND_URL}/api/cart/${cartItemId}`, {
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/cart/${cartItemId}`, {
             method: "DELETE"
         });
 
