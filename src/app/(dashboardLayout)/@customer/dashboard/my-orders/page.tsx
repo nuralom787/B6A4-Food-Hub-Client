@@ -16,7 +16,6 @@ const MyOrdersPage = () => {
         const loadOrders = async () => {
             const res = await fetch(`${BACKEND_URL}/api/orders/${session?.user.id}`);
             const result = await res.json();
-            console.log(result)
             setOrders(result);
         }
         loadOrders();

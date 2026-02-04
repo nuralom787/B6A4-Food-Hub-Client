@@ -55,7 +55,7 @@ const OrderCard = ({ order }: { order: any }) => {
                         <span className="text-sm font-bold">Order Summery</span>
                     </div>
                     <div className="space-y-2">
-                        {order.orderItems.map((item: any) => (
+                        {order?.orderItems?.map((item: any) => (
                             <div key={item.id} className="flex justify-between text-sm">
                                 <span className="text-muted-foreground">{item.meal.title}</span>
                                 <span className="text-muted-foreground">Item (x{item.quantity})</span>

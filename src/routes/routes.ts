@@ -27,6 +27,10 @@ export const providerRoutes: Route[] = [
   {
     items: [
       {
+        title: "Dashboard",
+        url: "/provider-dashboard",
+      },
+      {
         title: "Add Meal",
         url: "/provider-dashboard/add-meal",
       },
@@ -46,8 +50,8 @@ export const adminRoutes: Route[] = [
   {
     items: [
       {
-        title: "Analytics",
-        url: "/admin-dashboard/analytics",
+        title: "Dashboard",
+        url: "/admin-dashboard",
       },
       {
         title: "Orders",
