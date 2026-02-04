@@ -20,6 +20,20 @@ export const createOrder = async (data: any) => {
         return result;
     }
     catch (err) {
-        return { success: false, err: { message: "somethings went wrong! please try again." } }
+        throw err
+    }
+};
+
+export const getSpecificOrders = async (id: string) => {
+    // console.log("From action: ", id)
+    try {
+        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/orders/${id}`);
+
+        const result = await res.json();
+
+        return result;
+    }
+    catch (err) {
+        throw err
     }
 };

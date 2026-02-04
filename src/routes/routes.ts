@@ -4,6 +4,10 @@ export const customerRoutes: Route[] = [
   {
     items: [
       {
+        title: "Dashboard",
+        url: "/dashboard",
+      },
+      {
         title: "My Orders",
         url: "/dashboard/my-orders",
       },
