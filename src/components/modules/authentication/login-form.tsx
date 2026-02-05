@@ -18,8 +18,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
-import { redirect } from "next/navigation";
-import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -28,13 +29,18 @@ const formSchema = z.object({
 });
 
 export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const handleGoogleLogin = async () => {
+    setLoading(true);
     const data = authClient.signIn.social({
       provider: "google",
       callbackURL: "http://localhost:3000",
     });
-
-    console.log(data);
+    if ((await data).data?.redirect) {
+      return setLoading(false);
+    }
   };
 
   const form = useForm({
@@ -46,22 +52,26 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId = toast.loading("Logging in...");
-
-      try {
+      setLoading(true);
+      const loginPromise = async () => {
         const { data, error } = await authClient.signIn.email(value);
-
         if (error) {
-          toast.error(error.message, { id: toastId });
-          return;
+          throw error;
         }
+        return data;
+      };
 
-        toast.success("User Logged in Successfully", { id: toastId });
+      toast.promise(loginPromise(), {
+        pending: "Logging in...",
+        success: "Login Successful .",
+        error: "Login Field! Try again",
+      });
 
-        redirect("/")
-      } catch (err) {
-        toast.error("Something went wrong, please try again.", { id: toastId });
-      }
+      loginPromise().then(() => {
+        setLoading(false);
+        router.push("/");
+        router.refresh();
+      });
     },
   });
 
@@ -130,17 +140,29 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-5 justify-end">
-        <Button form="login-form" type="submit" className="w-full cursor-pointer">
-          Login
-        </Button>
-        <Button
-          onClick={() => handleGoogleLogin()}
-          variant="outline"
-          type="button"
-          className="w-full cursor-pointer"
-        >
-          Continue with Google
-        </Button>
+        {loading ?
+          <Button type="button" disabled className="w-full">
+            Loading
+          </Button>
+          :
+          <Button form="login-form" type="submit" className="w-full cursor-pointer">
+            Login
+          </Button>
+        }
+        {loading ?
+          <Button type="button" disabled className="w-full">
+            Loading
+          </Button>
+          :
+          <Button
+            onClick={() => handleGoogleLogin()}
+            variant="outline"
+            type="button"
+            className="w-full cursor-pointer"
+          >
+            Continue with Google
+          </Button>
+        }
       </CardFooter>
     </Card>
   );

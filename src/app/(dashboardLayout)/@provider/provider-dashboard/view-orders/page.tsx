@@ -2,14 +2,12 @@
 
 import OrderCard from "@/components/layouts/orderCard";
 import { env } from "@/env";
-import { authClient } from "@/lib/auth-client";
 import { OrderItems } from "@/types/order.types";
 import { useEffect, useState } from "react";
 
 const BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL;
 
 const ViewOrdersPage = () => {
-    // const { data: session } = authClient.useSession();
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {

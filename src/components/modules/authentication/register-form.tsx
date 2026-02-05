@@ -22,9 +22,9 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
-import { redirect } from "next/navigation";
-import { use, useState } from "react";
-import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -39,16 +39,9 @@ const formSchema = z.object({
 });
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
+  const router = useRouter();
   const [userType, setUserType] = useState("CUSTOMER");
-
-  const handleGoogleLogin = async () => {
-    const data = authClient.signIn.social({
-      provider: "google",
-      callbackURL: "http://localhost:3000",
-    });
-
-    console.log(data);
-  };
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -65,37 +58,58 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const toastId = toast.loading("Creating user...");
+      setLoading(true);
+      const registerProcess = async () => {
+        const signUpPayload = {
+          name: value.name,
+          email: value.email,
+          password: value.password,
+          role: value.role
+        };
 
-      try {
-        const data = { name: value.name, email: value.email, password: value.password, role: value.role, }
-        const { data: signUpData, error } = await authClient.signUp.email(data);
+        const { data: signUpData, error: signUpError } = await authClient.signUp.email(signUpPayload);
 
-        if (error) {
-          toast.error(error.message, { id: toastId });
-          return;
+        if (signUpError) {
+          throw signUpError;
         };
 
         if (value.role === "PROVIDER") {
-          const data = { businessName: value.businessName, address: value.address, description: value.description, imageUrl: value.imageUrl, userId: signUpData.user.id };
+          const providerPayload = {
+            businessName: value.businessName,
+            address: value.address,
+            description: value.description,
+            imageUrl: value.imageUrl,
+            userId: signUpData.user.id
+          };
 
-          const result = await createProvider(data);
+          const result = await createProvider(providerPayload);
 
           if (!result.success) {
-            return toast.error(result.message || "Failed to create provider profile", { id: toastId });
-          }
+            throw new Error(result.message || "Failed to create provider profile");
+          };
 
-          return toast.success("User Created Successfully with Provider Profile", { id: toastId });
+          return "User Created Successfully with Provider Profile";
         }
 
-        if (signUpData.token) {
-          toast.success("User Created Successfully", { id: toastId });
-          redirect("/");
-        }
-      }
-      catch (err) {
-        // return toast.error("Something went wrong, please try again.", { id: toastId });
-      }
+        return "User Created Successfully";
+      };
+
+      toast.promise(registerProcess(), {
+        pending: "Creating a new account..",
+        success: {
+          render({ data }) {
+            setLoading(false);
+            router.push("/");
+            router.refresh();
+            return `${data}`;
+          },
+        },
+        error: {
+          render({ data }: { data: any }) {
+            return data.message || "something went's wrong! please try again";
+          },
+        },
+      });
     },
   });
 
@@ -385,17 +399,15 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-5 justify-end">
-        <Button form="register-form" type="submit" className="w-full cursor-pointer">
-          Register
-        </Button>
-        {/* <Button
-          onClick={() => handleGoogleLogin()}
-          variant="outline"
-          type="button"
-          className="w-full cursor-pointer"
-        >
-          Continue with Google
-        </Button> */}
+        {loading ?
+          <Button type="button" disabled className="w-full">
+            Loading...
+          </Button>
+          :
+          <Button form="register-form" type="submit" className="w-full cursor-pointer">
+            Register
+          </Button>
+        }
       </CardFooter>
     </Card>
   );

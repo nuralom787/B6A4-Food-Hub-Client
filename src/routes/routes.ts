@@ -66,13 +66,9 @@ export const adminRoutes: Route[] = [
         url: "/admin-dashboard/categories",
       },
       {
-        title: "Customers",
-        url: "/admin-dashboard/customers",
-      },
-      {
-        title: "Providers",
-        url: "/admin-dashboard/providers",
-      },
+        title: "Users",
+        url: "/admin-dashboard/users",
+      }
     ],
   },
 ];
