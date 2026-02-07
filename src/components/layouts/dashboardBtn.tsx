@@ -16,7 +16,7 @@ const DashboardBtn = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="z-100 font-semibold text-sm">
                 <DropdownMenuItem className="cursor-pointer">
-                    <Link href="/dashboard/user/profile">
+                    <Link href="/dashboard/profile">
                         Profile
                     </Link>
                 </DropdownMenuItem>

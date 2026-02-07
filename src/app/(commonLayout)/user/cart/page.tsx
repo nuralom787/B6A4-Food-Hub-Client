@@ -179,7 +179,7 @@ const CartPage = () => {
                                 <h2 className="text-xl font-bold mb-4">Addresses</h2>
                                 <div className='grid grid-cols-1 gap-3'>
                                     {
-                                        addresses.map((address: Address) => <div
+                                        addresses?.map((address: Address) => <div
                                             key={address.id}
                                             className='border border-gray-400 rounded-md p-4'
                                         >
