@@ -7,7 +7,6 @@ import Link from "next/link";
 
 const MenusPage = async () => {
     const data = await getMeals();
-    console.log(data)
 
     return (
         <div>

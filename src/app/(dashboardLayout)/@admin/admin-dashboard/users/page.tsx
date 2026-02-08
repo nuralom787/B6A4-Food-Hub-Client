@@ -1,10 +1,5 @@
-"use client";
-export const dynamic = 'force-dynamic';
 
-import { env } from "@/env";
 import { Customer } from "@/types/customer.types";
-import { useEffect, useState } from "react";
-
 import {
     Table,
     TableBody,
@@ -13,50 +8,13 @@ import {
     TableHeader,
     TableRow
 } from "@/components/ui/table";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue
-} from "@/components/ui/select";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "react-toastify";
+import { getAllUsers } from "@/app/actions/usersAction";
+import UpdateStatus from "@/components/modules/userStatus/updateStatus";
 
-const BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL;
-
-const CustomersPage = () => {
-    const [customers, setCustomers] = useState([]);
-
-    useEffect(() => {
-        const loadCustomers = async () => {
-            const res = await fetch(`${BACKEND_URL}/api/customers`);
-            const result = await res.json();
-            console.log(result)
-            setCustomers(result);
-        }
-        loadCustomers()
-    }, []);
-
-
-    const handleStatusChange = async (userId: string, newStatus: string) => {
-        const updatePromise = fetch(`${BACKEND_URL}/api/customers/update-status?userId=${userId}&status=${newStatus}`, {
-            method: 'PATCH',
-        }).then(async (res) => {
-            if (!res.ok) {
-                const errorData = await res.json();
-                throw new Error(errorData.message || "Failed to update");
-            }
-            return res.json();
-        });
-
-        toast.promise(updatePromise, {
-            pending: "Updating Status...",
-            success: "Successfully updated.",
-            error: "Something went Wrong! please Try again",
-        });
-    };
+const CustomersPage = async () => {
+    const customers = await getAllUsers();
 
     return (
         <div className="container mx-auto py-10 px-4">
@@ -102,38 +60,7 @@ const CustomersPage = () => {
                                     </Badge>
                                 </TableCell>
                                 <TableCell className="text-right">
-                                    <Select
-                                        defaultValue={customer.status}
-                                        onValueChange={(value) => handleStatusChange(customer.id, value)}
-                                    >
-                                        <SelectTrigger className="w-35 ml-auto border-dashed">
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {customer.status !== "ACTIVE" && (
-                                                <SelectItem value="ACTIVE">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="h-2 w-2 rounded-full bg-green-500" />
-                                                        <span>Active</span>
-                                                    </div>
-                                                </SelectItem>
-                                            )}
-                                            {customer.status !== "SUSPENDED" && (
-                                                <SelectItem value="SUSPENDED">
-                                                    <div className="flex items-center gap-2">
-                                                        <span className="h-2 w-2 rounded-full bg-red-500" />
-                                                        <span>Suspend</span>
-                                                    </div>
-                                                </SelectItem>
-                                            )}
-                                            <SelectItem value={customer.status} className="hidden">
-                                                <div className="flex items-center gap-2">
-                                                    <span className={`h-2 w-2 rounded-full ${customer.status === 'ACTIVE' ? 'bg-green-500' : 'bg-red-500'}`} />
-                                                    <span className="capitalize">{customer.status.toLowerCase()}</span>
-                                                </div>
-                                            </SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                                    <UpdateStatus customer={customer} />
                                 </TableCell>
                             </TableRow>
                         ))}

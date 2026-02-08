@@ -1,24 +1,9 @@
-"use client";
-export const dynamic = 'force-dynamic';
-
+import { getSpecificOrders } from "@/app/actions/orderAction";
 import OrderCard from "@/components/layouts/orderCard";
-import { env } from "@/env";
 import { OrderItems } from "@/types/order.types";
-import { useEffect, useState } from "react";
 
-const BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL;
-
-const ViewOrdersPage = () => {
-    const [orders, setOrders] = useState([]);
-
-    useEffect(() => {
-        const loadOrders = async () => {
-            const res = await fetch(`${BACKEND_URL}/api/orders`);
-            const result = await res.json();
-            setOrders(result);
-        }
-        loadOrders();
-    }, []);
+const ViewOrdersPage = async () => {
+    const orders = await getSpecificOrders();
 
 
     return (

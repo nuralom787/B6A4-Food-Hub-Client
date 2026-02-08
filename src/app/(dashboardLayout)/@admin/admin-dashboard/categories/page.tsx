@@ -1,13 +1,12 @@
 export const dynamic = 'force-dynamic';
 import { getCategories } from '@/app/actions/categoryAction';
 import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Category } from '@/types/category.types';
 import Link from 'next/link';
 
 const CategoriesPage = async () => {
     const categories = await getCategories();
-
 
     return (
         <div className='mx-5'>

@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 
 const ManageMenusPage = async () => {
     const data = await getMeals();
-    console.log(data)
 
     return (
         <div>
