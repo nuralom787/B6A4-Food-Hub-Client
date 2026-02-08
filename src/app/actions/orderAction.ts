@@ -24,6 +24,18 @@ export const createOrder = async (data: any) => {
     }
 };
 
+export const getAllOrders = async () => {
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/orders`);
+        const result = await res.json();
+
+        return result;
+    }
+    catch (err) {
+        throw err
+    }
+};
+
 export const getSpecificOrders = async () => {
     const session = await userService.getSession();
 

@@ -53,24 +53,33 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
     },
     onSubmit: async ({ value }) => {
       setLoading(true);
+
       const loginPromise = async () => {
         const { data, error } = await authClient.signIn.email(value);
         if (error) {
+          setLoading(false);
           throw error;
         }
-        return data;
+
+        return "User Login Successfully.";
       };
 
       toast.promise(loginPromise(), {
         pending: "Logging in...",
-        success: "Login Successful .",
-        error: "Login Field! Try again",
-      });
-
-      loginPromise().then(() => {
-        setLoading(false);
-        router.push("/");
-        router.refresh();
+        success: {
+          render({ data }) {
+            setLoading(false);
+            router.push("/");
+            router.refresh();
+            return `${data}`;
+          },
+        },
+        error: {
+          render({ data }: { data: any }) {
+            setLoading(false);
+            return data.message || "something went's wrong! please try again";
+          },
+        },
       });
     },
   });

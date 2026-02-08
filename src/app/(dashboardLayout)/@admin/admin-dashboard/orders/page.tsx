@@ -1,10 +1,10 @@
 
-import { getSpecificOrders } from "@/app/actions/orderAction";
+import { getAllOrders } from "@/app/actions/orderAction";
 import OrderCard from "@/components/layouts/orderCard";
 import { OrderItems } from "@/types/order.types";
 
 const OrdersPage = async () => {
-    const orders = await getSpecificOrders();
+    const orders = await getAllOrders();
 
     return (
         <div className="container mx-auto py-10 px-4">
