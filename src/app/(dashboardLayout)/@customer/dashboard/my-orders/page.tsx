@@ -1,26 +1,11 @@
-export const dynamic = 'force-dynamic';
-"use client";
 
+import { getSpecificOrders } from "@/app/actions/orderAction";
 import OrderCard from "@/components/layouts/orderCard";
-import { env } from "@/env";
-import { authClient } from "@/lib/auth-client";
 import { OrderItems } from "@/types/order.types";
-import { useEffect, useState } from "react";
 
-const BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL;
 
-const MyOrdersPage = () => {
-    const { data: session } = authClient.useSession();
-    const [orders, setOrders] = useState([]);
-
-    useEffect(() => {
-        const loadOrders = async () => {
-            const res = await fetch(`${BACKEND_URL}/api/orders/${session?.user.id}`);
-            const result = await res.json();
-            setOrders(result);
-        }
-        loadOrders();
-    }, [session])
+const MyOrdersPage = async () => {
+    const orders = await getSpecificOrders();
 
     return (
         <div className="container mx-auto py-10 px-4">

@@ -1,5 +1,5 @@
-export const dynamic = 'force-dynamic';
 "use client";
+export const dynamic = 'force-dynamic';
 
 import { env } from "@/env";
 import { Customer } from "@/types/customer.types";

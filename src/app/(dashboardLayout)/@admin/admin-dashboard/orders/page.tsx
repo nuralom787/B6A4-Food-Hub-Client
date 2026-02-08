@@ -1,5 +1,5 @@
-export const dynamic = 'force-dynamic';
 "use client";
+export const dynamic = 'force-dynamic';
 
 import OrderCard from "@/components/layouts/orderCard";
 import { env } from "@/env";

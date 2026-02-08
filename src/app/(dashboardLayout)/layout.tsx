@@ -17,9 +17,9 @@ export default async function DashboardLayout({
   provider: React.ReactNode;
   admin: React.ReactNode;
 }) {
-  const { data } = await userService.getSession();
+  const session = await userService.getSession();
 
-  const userInfo = data.user;
+  const userInfo = session.user;
 
   return (
     <SidebarProvider>

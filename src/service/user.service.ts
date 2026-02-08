@@ -30,10 +30,10 @@ export const userService = {
       }
       session.user.providerProfile = providerData;
 
-      return { data: session, error: null };
+      return session;
     } catch (err) {
       console.error(err);
-      return { data: null, error: { message: "Something Went Wrong" } };
+      throw err;
     }
   },
 };

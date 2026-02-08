@@ -1,13 +1,13 @@
 "use server";
 
 import { env } from "@/env";
+import { userService } from "@/service/user.service";
 
-const NEXT_PUBLIC_BACKEND_URL = env.NEXT_PUBLIC_BACKEND_URL
+const BACKEND_URL = env.BACKEND_URL
 
 export const createOrder = async (data: any) => {
-    console.log("From action: ", data)
     try {
-        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/orders/placed-order`, {
+        const res = await fetch(`${BACKEND_URL}/api/orders/placed-order`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -24,11 +24,11 @@ export const createOrder = async (data: any) => {
     }
 };
 
-export const getSpecificOrders = async (id: string) => {
-    // console.log("From action: ", id)
-    try {
-        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/orders/${id}`);
+export const getSpecificOrders = async () => {
+    const session = await userService.getSession();
 
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/orders/${session?.user?.id}`);
         const result = await res.json();
 
         return result;

@@ -10,13 +10,13 @@ export async function proxy(request: NextRequest) {
   let isProvider = false;
   let isAdmin = false;
 
-  const { data } = await userService.getSession();
+  const session = await userService.getSession();
 
-  if (data) {
+  if (session) {
     isAuthenticated = true
-    isCustomer = data.user.role === Roles.customer;
-    isProvider = data.user.role === Roles.provider;
-    isAdmin = data.user.role === Roles.admin;
+    isCustomer = session.user.role === Roles.customer;
+    isProvider = session.user.role === Roles.provider;
+    isAdmin = session.user.role === Roles.admin;
   };
 
   if (!isAuthenticated) {
