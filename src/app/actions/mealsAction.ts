@@ -1,44 +1,45 @@
 "use server";
 
+import { env } from "@/env";
 import { Meal } from "@/types/types";
 
-const NEXT_PUBLIC_BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const BACKEND_URL = env.BACKEND_URL;
 
 export const getMeals = async () => {
     try {
-        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/meals`);
+        const res = await fetch(`${BACKEND_URL}/api/meals`);
 
         if (!res.ok) {
-            return { success: false, message: "Something went wrong while fetching meals." }
+            throw new Error("Somethings Went Wrong! please try again")
         };
 
         const meals = await res.json();
         return { success: true, data: meals };
     } catch (error) {
         console.error("Error fetching meals:", error);
-        return { success: false, message: "Something went wrong while fetching meals." };
+        throw error;
     }
 };
 
 export const getSingleMeal = async (id: string) => {
     try {
-        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/meals/${id}`);
+        const res = await fetch(`${BACKEND_URL}/api/meals/${id}`);
 
         if (!res.ok) {
-            return { success: false, message: "Something went wrong while fetching meals." }
+            throw new Error("Somethings Went Wrong! please try again")
         };
 
         const meal = await res.json();
         return { success: true, data: meal };
     } catch (error) {
         console.error("Error fetching meals:", error);
-        return { success: false, message: "Something went wrong while fetching meals." };
+        throw error;
     }
 };
 
 export const createMeals = async (data: Meal) => {
     try {
-        const res = await fetch(`${NEXT_PUBLIC_BACKEND_URL}/api/meals`, {
+        const res = await fetch(`${BACKEND_URL}/api/meals`, {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -47,14 +48,14 @@ export const createMeals = async (data: Meal) => {
         });
 
         if (!res.ok) {
-            return { success: false, message: "Something went wrong! Please Try Again." }
+            throw new Error("Somethings Went Wrong! please try again")
         };
 
         const result = await res.json();
 
         return { success: true, data: result };
     } catch (error) {
-        // console.error("Error fetching meals:", error);
-        return { success: false, message: "Something went wrong while fetching meals." };
+        console.error("Error fetching meals:", error);
+        throw error;
     }
 };
