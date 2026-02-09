@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { getSpecificOrders } from "@/app/actions/orderAction";
 import OrderCard from "@/components/layouts/orderCard";
 import { Spinner } from "@/components/ui/spinner";
