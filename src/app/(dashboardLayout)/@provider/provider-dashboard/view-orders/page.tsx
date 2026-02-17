@@ -7,7 +7,6 @@ import { OrderItems } from "@/types/order.types";
 const ViewOrdersPage = async () => {
     const orders = await getAllOrders();
 
-
     return (
         <div className="container mx-auto py-10 px-4">
             <h1 className="text-3xl font-extrabold mb-8 tracking-tight">All Orders</h1>
